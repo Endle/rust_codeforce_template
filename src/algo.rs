@@ -1,5 +1,3 @@
-
-
 pub fn calculate_array_inversions
 <T: std::cmp::PartialOrd + Copy + Ord>(arr: &[T]) -> i64 {
     let (answer, _) = _calculate_array_inversions(arr);
@@ -31,30 +29,6 @@ fn _merge_sorted_vecs<T: std::cmp::PartialOrd + Copy + Ord>(left: Vec<T>, right:
     let mut sorted = Vec::with_capacity(left.len() + right.len());
     let mut swap_count = 0;
 
-    /*
-    for x in &left {
-        for y in &right {
-            if x > y {
-                swap_count += 1
-            }
-        }
-    }
-    for x in left {sorted.push(x)}
-    for x in right {sorted.push(x)}
-    sorted.sort_unstable();
-    return (swap_count, sorted);
-
-     */
-    //
-    // eprintln!("\nLEFT:");
-    // for x in &left {
-    //     eprint!("{} ", x);
-    // }
-    // eprintln!("\nRIGHT:");
-    // for x in &right {
-    //     eprint!("{} ", x);
-    // }
-
     let mut lp:usize = 0;
     let mut rp:usize = 0;
     // do compare
@@ -83,18 +57,11 @@ fn _merge_sorted_vecs<T: std::cmp::PartialOrd + Copy + Ord>(left: Vec<T>, right:
         rp += 1;
     }
 
-
-    // eprintln!("\nMERGED:");
-    // for x in &sorted {
-    //     eprint!("{} ", x);
-    // }
     assert_eq!(sorted.len(), left.len() + right.len());
     assert_eq!(left.len(), lp);
     assert_eq!(right.len(), rp);
     //dump remaining
     return (swap_count, sorted);
-
-
 }
 
 fn _calculate_array_inversions_brute_force
