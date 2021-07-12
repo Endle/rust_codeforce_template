@@ -71,7 +71,7 @@ jobs:
 
       # Real tests starts here
       - name: Install bundler
-        run: cargo install --git https://github.com/Endle/rust-bundler.git
+        run: cargo install --git https://github.com/Endle/rust-bundler.git --branch codeforce bundler
       - name: Build
         run: cargo build --verbose
       - name: Run tests
