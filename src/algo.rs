@@ -16,7 +16,7 @@ fn _calculate_array_inversions
 
     let left = &arr[0..mid];
     let right = &arr[mid..];
-    let (left_val, left_sorted)   = _calculate_array_inversions(left);
+    let (left_val, left_sorted) = _calculate_array_inversions(left);
     let (right_val, right_sorted) = _calculate_array_inversions(right);
     let (swap_count, vec_sorted) = _merge_sorted_vecs(left_sorted, right_sorted);
     let answer = left_val + right_val + swap_count;
@@ -25,20 +25,20 @@ fn _calculate_array_inversions
 
 fn _merge_sorted_vecs<T: std::cmp::PartialOrd + Copy + Ord>(left: Vec<T>, right: Vec<T>)
                                                             -> (i64, Vec<T>) {
-    assert!(!left.is_empty()); assert!(!right.is_empty());
+    assert!(!left.is_empty());
+    assert!(!right.is_empty());
     let mut sorted = Vec::with_capacity(left.len() + right.len());
     let mut swap_count = 0;
 
-    let mut lp:usize = 0;
-    let mut rp:usize = 0;
+    let mut lp: usize = 0;
+    let mut rp: usize = 0;
     // do compare
     while lp < left.len() && rp < right.len() {
-
         match left[lp] <= right[rp] {
             true => {
                 sorted.push(left[lp]);
                 lp += 1;
-            } ,
+            }
             false => {
                 sorted.push(right[rp]);
                 rp += 1;
@@ -69,7 +69,7 @@ fn _calculate_array_inversions_brute_force
     let n = arr.len();
     let mut answer = 0;
     for i in 0..n {
-        for j in i+1..n {
+        for j in i + 1..n {
             if arr[i] > arr[j] {
                 answer += 1;
             }
@@ -83,7 +83,7 @@ fn _calculate_array_inversions_brute_force
 
 // Based on https://users.rust-lang.org/t/how-to-get-min-max-min-index-max-index/45324/3?u=zhenbo_endle
 #[allow(dead_code)]
-pub fn find_max_min_pos<T: std::cmp::PartialOrd + Copy>(slice: &[T]) -> (T, T, usize, usize){
+pub fn find_max_min_pos<T: std::cmp::PartialOrd + Copy>(slice: &[T]) -> (T, T, usize, usize) {
     std::assert!(slice.len() > 0);
     let mut max = &slice[0];
     let mut min = &slice[0];
@@ -91,8 +91,14 @@ pub fn find_max_min_pos<T: std::cmp::PartialOrd + Copy>(slice: &[T]) -> (T, T, u
     let mut min_pos: usize = 0;
 
     for index in 1..slice.len() {
-        if slice[index] < *min { min = &slice[index]; min_pos = index;}
-        if slice[index] > *max { max = &slice[index]; max_pos = index;}
+        if slice[index] < *min {
+            min = &slice[index];
+            min_pos = index;
+        }
+        if slice[index] > *max {
+            max = &slice[index];
+            max_pos = index;
+        }
     }
     (*max, *min, max_pos, min_pos)
 }
