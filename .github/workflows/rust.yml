@@ -81,7 +81,7 @@ jobs:
       - name: Install
         run: cargo install --path .
       - name: Test bundle
-        run: echo 0 > /tmp/fake_input && ./run_with_bundle.sh < /tmp/fake_input
+        run: echo 0 >./fake_input && ./run_with_bundle.sh < ./fake_input
 
 
       - name: Print sccache stats
