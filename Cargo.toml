@@ -7,4 +7,12 @@ edition = "2018"
 [lib]
 name = "my_lib"
 
-[dependencies]
+#[dependencies]
+
+[dev-dependencies]
+rand = "0.8.4"
+
+criterion = "0.3.4"
+[[bench]]
+name = "bench_algo"
+harness = false
