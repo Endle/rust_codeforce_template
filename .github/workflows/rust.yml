@@ -71,7 +71,7 @@ jobs:
 
       # Real tests starts here
       - name: Install bundler
-        run: cargo install --git https://github.com/Endle/rust-bundler.git
+        run: cargo install --git https://github.com/Endle/rust-bundler.git --branch codeforce bundler
       - name: Build
         run: cargo build --verbose
       - name: Run tests
@@ -81,7 +81,9 @@ jobs:
       - name: Install
         run: cargo install --path .
       - name: Test bundle
-        run: echo 0 > /tmp/fake_input && ./run_with_bundle.sh < /tmp/fake_input
+        # MacOS doesn't have /dev/shm. Skip for now
+        if: matrix.os == 'ubuntu-latest'
+        run: echo 0 > /dev/shm/fake_input && ./run_with_bundle.sh < /dev/shm/fake_input
 
 
       - name: Print sccache stats
