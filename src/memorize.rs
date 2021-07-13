@@ -1,3 +1,4 @@
+// IN PROGRESS!
 pub struct Note<FType, ArgT, ResultT>
 {
     calculate: FType,

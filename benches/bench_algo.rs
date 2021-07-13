@@ -1,8 +1,5 @@
-// #[path = "../src"]
-
 use my_lib::algo::calculate_array_inversions;
 use rand::Rng;
-
 
 
 fn create_random_arr(n: usize) -> Vec<u32> {
@@ -16,8 +13,6 @@ fn create_random_arr(n: usize) -> Vec<u32> {
 
 use criterion::{ criterion_group, criterion_main, Criterion};
 use std::time::Duration;
-
-
 
 fn criterion_benchmark(c: &mut Criterion) {
     const SMALL_ARR_SIZE:usize = 10_000;
@@ -42,8 +37,6 @@ fn criterion_benchmark(c: &mut Criterion) {
     );
     g.finish();
 }
-
-
 
 
 criterion_group!(benches, criterion_benchmark);
