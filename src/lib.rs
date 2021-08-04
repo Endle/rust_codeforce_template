@@ -28,7 +28,7 @@ impl error::Error for Error {}
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use self::Error::*;
+        use crate::Error::*;
         use std::str::from_utf8;
 
         match *self {
@@ -94,6 +94,23 @@ pub fn parse_capture<T>(
     }
 }
 
+/// ```rust,no_run
+/// use text_io::try_read;
+///
+/// let i: i32 = try_read!("The answer: {}!").unwrap();
+/// let i: Result<i32, _> = try_read!("The {}{{}}!", "The answer is 42!".bytes());
+/// assert!(i.is_err());
+/// ```
+///
+/// ```rust
+/// use text_io::try_read;
+///
+/// let i: Result<i32, _> = try_read!("The answer is {}!", "The answer is 42!".bytes());
+/// assert!(i.is_ok());
+///
+/// let i: Result<i32, _> = try_read!("The {}{{}}!", "The answer is 42!".bytes());
+/// assert!(i.is_err());
+/// ```
 #[macro_export]
 macro_rules! try_read(
     () => { $crate::try_read!("{}") };
@@ -113,12 +130,24 @@ macro_rules! try_read(
     }};
 );
 
+/// ```rust,no_run
+/// use text_io::try_scan;
+///
+/// fn parser() -> Result<i32, Box<std::error::Error>> {
+///     let i: i32;
+///     let text = "The answer is 42!";
+///
+///     try_scan!(text.bytes() => "The answer is {}!", i);
+///
+///     assert_eq!(i, 1);
+///     Ok(i)
+/// }
+/// ```
 #[macro_export]
 macro_rules! try_scan(
     ($pattern:expr, $($arg:expr),*) => {
         use ::std::io::Read;
         $crate::try_scan!(::std::io::stdin().bytes().map(std::result::Result::unwrap) => $pattern, $($arg),*);
-        format_args!($pattern, $($arg),*);
     };
     ($input:expr => $pattern:expr, $($arg:expr),*) => {{
         $crate::try_scan!(@impl question_mark; $input => $pattern, $($arg),*)
@@ -174,13 +203,11 @@ macro_rules! scan(
     ($text:expr, $($arg:expr),*) => {
         use ::std::io::Read;
         $crate::scan!(::std::io::stdin().bytes().map(std::result::Result::unwrap) => $text, $($arg),*);
-        format_args!($text, $($arg),*);
     };
     ($input:expr => $pattern:expr, $($arg:expr),*) => {{
         $crate::try_scan!(@impl unwrap; $input => $pattern, $($arg),*)
     }};
 );
-
 // ======== END OF text_io ==========
 
 #[inline(always)]
