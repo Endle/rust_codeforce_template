@@ -2,9 +2,9 @@
 extern crate my_lib;
 use my_lib::{read, read_ivec, read_uvec};
 use my_lib::pr;
-use my_lib::nd;
-use my_lib::multi_queue;
-use my_lib::algo;
+// use my_lib::nd;
+// use my_lib::multi_queue;
+// use my_lib::algo;
 
 
 
@@ -16,15 +16,13 @@ fn solve() -> Option<i64> {
 }
 fn main() {
     let testcases: i32 = read!();
-
     // let testcases = 1;
     for _ in 0..testcases { solve_and_print(); }
 }
 
-#[inline(always)]
+#[inline]
 fn solve_and_print() {
     let answer = solve();
-    // pr::slice(&answer);
     match answer {
         None => (),
         _ => pr::ln(answer.unwrap())
