@@ -1,8 +1,7 @@
 // Please Read [Rule about third-party code is changing](https://codeforces.com/blog/entry/8790)
 extern crate my_lib;
-use my_lib::{read, read_ivec};
+use my_lib::{read, read_ivec, read_uvec};
 use my_lib::pr;
-use my_lib::memorize;
 use my_lib::nd;
 use my_lib::multi_queue;
 use my_lib::algo;
@@ -11,12 +10,24 @@ use my_lib::algo;
 
 // Currently bundler https://github.com/Endle/rust-bundler/tree/codeforce doesn't support use *
 
-fn solve() {
+
+fn solve() -> Option<i64> {
+    None
 }
-
-
-// Below is template
 fn main() {
     let testcases: i32 = read!();
-    for _ in 0..testcases { solve(); }
+
+    // let testcases = 1;
+    for _ in 0..testcases { solve_and_print(); }
+}
+
+#[inline(always)]
+fn solve_and_print() {
+    let answer = solve();
+    // pr::slice(&answer);
+    match answer {
+        None => (),
+        _ => pr::ln(answer.unwrap())
+    }
+
 }
