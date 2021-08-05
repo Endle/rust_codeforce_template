@@ -45,3 +45,23 @@ mod test_algo {
 
     }
 }
+
+
+#[cfg(test)]
+#[path = "../src"]
+mod test_nums {
+    use my_lib::nums::pow_mod;
+
+    #[test]
+    fn test_pow() {
+        const MODULO:i32 = 998244353;
+        let v = pow_mod(2, 10, MODULO);
+        assert_eq!(v, 1024);
+
+        let v = pow_mod(5, 6, MODULO);
+        assert_eq!(v, 15625);
+
+        let v = pow_mod(7, 92, MODULO);
+        assert_eq!(v, 807568023);
+    }
+}

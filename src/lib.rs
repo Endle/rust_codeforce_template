@@ -1,8 +1,11 @@
 pub mod pr;
 pub mod algo;
-pub mod memorize;
 pub mod nd;
 pub mod multi_queue;
+pub mod nums;
+
+
+mod cheatsheet;
 
 // ==== BELOW IS text_io https://github.com/oli-obk/rust-si ====
 // Tried to put text_io in a module, but failed for exporting macros
@@ -25,7 +28,7 @@ impl error::Error for Error {}
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use self::Error::*;
+        use crate::Error::*;
         use std::str::from_utf8;
 
         match *self {
@@ -115,7 +118,6 @@ macro_rules! try_scan(
     ($pattern:expr, $($arg:expr),*) => {
         use ::std::io::Read;
         $crate::try_scan!(::std::io::stdin().bytes().map(std::result::Result::unwrap) => $pattern, $($arg),*);
-        format_args!($pattern, $($arg),*);
     };
     ($input:expr => $pattern:expr, $($arg:expr),*) => {{
         $crate::try_scan!(@impl question_mark; $input => $pattern, $($arg),*)
@@ -171,13 +173,11 @@ macro_rules! scan(
     ($text:expr, $($arg:expr),*) => {
         use ::std::io::Read;
         $crate::scan!(::std::io::stdin().bytes().map(std::result::Result::unwrap) => $text, $($arg),*);
-        format_args!($text, $($arg),*);
     };
     ($input:expr => $pattern:expr, $($arg:expr),*) => {{
         $crate::try_scan!(@impl unwrap; $input => $pattern, $($arg),*)
     }};
 );
-
 // ======== END OF text_io ==========
 
 #[inline(always)]
@@ -186,6 +186,17 @@ pub fn read_ivec(n:usize) -> Vec<i32> {
     let mut vec = Vec::with_capacity(n);
     for _ in 0..n {
         let x:i32 = read!();
+        vec.push(x);
+    }
+    return vec;
+}
+
+#[inline(always)]
+#[allow(dead_code)]
+pub fn read_uvec(n:usize) -> Vec<u32> {
+    let mut vec = Vec::with_capacity(n);
+    for _ in 0..n {
+        let x:u32 = read!();
         vec.push(x);
     }
     return vec;
