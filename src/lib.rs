@@ -94,23 +94,6 @@ pub fn parse_capture<T>(
     }
 }
 
-/// ```rust,no_run
-/// use text_io::try_read;
-///
-/// let i: i32 = try_read!("The answer: {}!").unwrap();
-/// let i: Result<i32, _> = try_read!("The {}{{}}!", "The answer is 42!".bytes());
-/// assert!(i.is_err());
-/// ```
-///
-/// ```rust
-/// use text_io::try_read;
-///
-/// let i: Result<i32, _> = try_read!("The answer is {}!", "The answer is 42!".bytes());
-/// assert!(i.is_ok());
-///
-/// let i: Result<i32, _> = try_read!("The {}{{}}!", "The answer is 42!".bytes());
-/// assert!(i.is_err());
-/// ```
 #[macro_export]
 macro_rules! try_read(
     () => { $crate::try_read!("{}") };
@@ -130,19 +113,6 @@ macro_rules! try_read(
     }};
 );
 
-/// ```rust,no_run
-/// use text_io::try_scan;
-///
-/// fn parser() -> Result<i32, Box<std::error::Error>> {
-///     let i: i32;
-///     let text = "The answer is 42!";
-///
-///     try_scan!(text.bytes() => "The answer is {}!", i);
-///
-///     assert_eq!(i, 1);
-///     Ok(i)
-/// }
-/// ```
 #[macro_export]
 macro_rules! try_scan(
     ($pattern:expr, $($arg:expr),*) => {
