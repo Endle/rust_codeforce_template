@@ -3,7 +3,7 @@ pub mod algo;
 pub mod nd;
 pub mod multi_queue;
 pub mod nums;
-pub mod types;
+
 
 mod cheatsheet;
 
