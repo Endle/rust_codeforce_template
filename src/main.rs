@@ -11,9 +11,10 @@ use my_lib::pr;
 // Currently bundler https://github.com/Endle/rust-bundler/tree/codeforce doesn't support use *
 
 
-fn solve() -> Option<i64> {
+fn solve() -> Option<i32> {
     None
 }
+
 fn main() {
     let testcases: i32 = read!();
     // let testcases = 1;
@@ -27,5 +28,4 @@ fn solve_and_print() {
         None => (),
         _ => pr::ln(answer.unwrap())
     }
-
 }
