@@ -1,3 +1,35 @@
+/// Returns a vector representing the bits.
+///     i=63 is the highest bit, i=0 is the lowest bit
+///     x = sigma v[i]*(2^i)
+/// # Arguments
+///
+/// * `x`: A 64-bit number to be represented in bits
+///
+/// returns: Vec<u8>
+///
+#[allow(dead_code)]
+pub fn represent_into_bits(x:u64) -> Vec<u8> {
+    let mut result = Vec::with_capacity(64);
+    let mut x = x;
+    for _ in 0..64 {
+        let bit = x & 1;
+        let bit = bit as u8;
+        result.push(bit);
+        x >>= 1;
+    }
+    assert_eq!(result.len(), 64);
+    result
+}
+
+pub fn represent_from_bits(a: &Vec<u8>) -> u64  {
+    assert_eq!(a.len(), 64);
+    let mut result:u64 = 0;
+    for i in 0..64 {
+        result += a[i] as u64 * (1u64 << i);
+    }
+    result
+}
+
 #[inline(always)]
 #[allow(dead_code)]
 pub fn multi_mod(x:i32, y:i32, modulo:i32) -> i32 {
@@ -49,7 +81,7 @@ pub fn select_lowest_kth_bit(x: u32, b: u32) -> u32 {
 }
 //Needs mature
 #[allow(dead_code)]
-fn calc_combination_with_mod(a: i32, b: i32, modulo: i32) -> i32 {
+pub fn calc_combination_with_mod(a: i32, b: i32, modulo: i32) -> i32 {
     // https://www.geeksforgeeks.org/compute-ncr-p-set-3-using-fermat-little-theorem/
     let mut num:i64 = 1;
     let mut den:i64 = 1;
@@ -62,3 +94,4 @@ fn calc_combination_with_mod(a: i32, b: i32, modulo: i32) -> i32 {
     let answer = answer % modulo as i64;
     answer as i32
 }
+

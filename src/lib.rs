@@ -4,8 +4,9 @@ pub mod nd;
 pub mod multi_queue;
 pub mod nums;
 
+pub mod iters;
 
-mod cheatsheet;
+
 
 // ==== BELOW IS text_io https://github.com/oli-obk/rust-si ====
 // Tried to put text_io in a module, but failed for exporting macros
@@ -184,6 +185,18 @@ macro_rules! scan(
 #[allow(dead_code)]
 pub fn read_ivec(n:usize) -> Vec<i32> {
     let mut vec = Vec::with_capacity(n);
+    for _ in 0..n {
+        let x:i32 = read!();
+        vec.push(x);
+    }
+    return vec;
+}
+
+#[inline]
+#[allow(dead_code)]
+pub fn read_ived_1(n:usize) -> Vec<i32> {
+    let mut vec = Vec::with_capacity(n + 1);
+    vec.push(0);
     for _ in 0..n {
         let x:i32 = read!();
         vec.push(x);

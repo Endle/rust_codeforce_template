@@ -50,7 +50,7 @@ mod test_algo {
 #[cfg(test)]
 #[path = "../src"]
 mod test_nums {
-    use my_lib::nums::pow_mod;
+    use my_lib::nums::{pow_mod, represent_from_bits};
 
     #[test]
     fn test_pow() {
@@ -63,5 +63,32 @@ mod test_nums {
 
         let v = pow_mod(7, 92, MODULO);
         assert_eq!(v, 807568023);
+    }
+
+
+    use my_lib::nums::represent_into_bits;
+    #[test]
+    fn test_represent_into_bits() {
+        let x = 0;
+        let v = represent_into_bits(x);
+        let ev = [0u8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        assert_eq!(v, ev);
+        let s = represent_from_bits(&v);
+        assert_eq!(x,s);
+
+
+        let x = 7;
+        let v = represent_into_bits(x);
+        let ev = [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        assert_eq!(v, ev);
+        let s = represent_from_bits(&v);
+        assert_eq!(x,s);
+
+        let x = (1u64<<60) + 3;
+        let v = represent_into_bits(x);
+        let ev = [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
+        assert_eq!(v, ev);
+        let s = represent_from_bits(&v);
+        assert_eq!(x,s);
     }
 }
