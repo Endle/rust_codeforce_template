@@ -29,3 +29,27 @@ fn solve_and_print() {
         _ => pr::ln(answer.unwrap())
     }
 }
+
+
+//maturing
+fn smaller_pair(a: u32, b: u32) -> (u32, u32) {
+    let smaller = a.min(b);
+    let larger = a.max(b);
+    return (smaller, larger);
+}
+
+// Maturing
+fn read_01_vec() -> Vec<u8> {
+    let s:String = read!();
+    let mut ret = Vec::with_capacity(s.len());
+
+    for c in s.chars() {
+        match c {
+            '0' => ret.push(0),
+            '1' => ret.push(1),
+            _ => panic!("Unexpected char")
+        }
+    }
+
+    ret
+}

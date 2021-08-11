@@ -40,3 +40,22 @@ impl<T:Copy> Arr<T> {
         ans
     }
 }
+
+impl<T:std::fmt::Display+Copy> std::fmt::Debug for Arr<T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "Dim={}, ({},{})\n", 2, self._max_n, self._max_m);
+        for i in 0..self._max_n {
+            write!(f, "    [");
+            for j in 0..self._max_m {
+                write!(f, "{}", self.get(i, j));
+                if j + 1 < self._max_m {
+                    write!(f, ",");
+                }
+            }
+            write!(f, "]\n");
+        }
+        write!(f,"")
+    }
+}
+
+
