@@ -8,7 +8,7 @@ edition = "2018"
 name = "my_lib"
 
 [[bin]]
-name = "main"
+name = "rust_codeforce_template"
 path = "src/bin/main.rs"
 
 [[bin]]
