@@ -43,4 +43,39 @@ impl <KeyT:Eq  + std::hash::Hash,  ValT> MultiQueue<KeyT, ValT> {
 
     }
 
+
+    pub fn is_empty(&self, key: KeyT) -> bool{
+        let mut queue = self._data.get(&key);
+        if queue.is_none() {
+            return true;
+        }
+        let queue = queue.expect("Get Queue");
+        // if queue.is_empty() {
+        //     return None;
+        // }
+        queue.is_empty()
+    }
+
+}
+
+impl <KeyT:Eq  + std::hash::Hash + std::fmt::Display+Copy,
+    ValT: std::fmt::Display+Copy>
+std::fmt::Debug for MultiQueue<KeyT, ValT> {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "Queues count {}\n", self._data.len());
+        // let mut keys = self._data.keys().cl
+        for key in self._data.keys() {
+            write!(f, "    {}  [", key);
+            // write!(f, "{:?}", self._data.get(key).unwrap());
+            for v in self._data.get(key).unwrap() {
+                write!(f, "{}", v);
+                write!(f, ",");
+                // if j + 1 < self._max_m {
+
+                // }
+            }
+            write!(f, "]\n");
+        }
+        write!(f,"")
+    }
 }

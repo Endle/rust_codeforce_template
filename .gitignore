@@ -2,4 +2,10 @@
 Cargo.lock
 *.swp
 .idea
+
+# Test
+generator
 /test.in
+
+#Backup
+/backup

@@ -57,4 +57,4 @@ jobs:
       - name: Test bundle
         # MacOS doesn't have /dev/shm. Skip for now
         if: matrix.os == 'ubuntu-latest'
-        run: echo 0 > /dev/shm/fake_input && ./run_with_bundle.sh < /dev/shm/fake_input
+        run: echo 0 > /dev/shm/fake_input && ./cr.py < /dev/shm/fake_input

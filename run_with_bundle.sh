@@ -2,6 +2,7 @@
 
 set -e
 
+echo "This script is deprecated"
 # As of 2021-08-06, Codeforces.com is using rust 1.49
 rustup default 1.49.0
 
