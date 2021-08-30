@@ -11,7 +11,7 @@ use my_lib::pr;
 // Currently bundler https://github.com/Endle/rust-bundler/tree/codeforce doesn't support use *
 
 
-fn solve() -> Option<i32> {
+fn solve() -> Option<i64> {
     None
 }
 
