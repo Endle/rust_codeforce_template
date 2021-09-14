@@ -56,7 +56,7 @@ def reset_workspace():
             continue
         subprocess.run(["mv", RS_FILE_DIRECTORY+filename, backup_dir + filename])
         subprocess.run(["cp", RS_FILE_DIRECTORY + TEMPLATE_RS_FILE_NAME, RS_FILE_DIRECTORY+filename])
-    print("Previous result code backed up tp {}" + backup_dir)
+    print("Previous result code backed up tp " + backup_dir)
     exit(0)
 
 
