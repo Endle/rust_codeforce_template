@@ -34,17 +34,14 @@ fn _merge_sorted_vecs<T: std::cmp::PartialOrd + Copy + Ord>(left: Vec<T>, right:
     let mut rp: usize = 0;
     // do compare
     while lp < left.len() && rp < right.len() {
-        match left[lp] <= right[rp] {
-            true => {
-                sorted.push(left[lp]);
-                lp += 1;
-            }
-            false => {
-                sorted.push(right[rp]);
-                rp += 1;
-                let left_remained = left.len() - lp;
-                swap_count += left_remained as i64;
-            }
+        if left[lp] <= right[rp] {
+            sorted.push(left[lp]);
+            lp += 1;
+        } else {
+            sorted.push(right[rp]);
+            rp += 1;
+            let left_remained = left.len() - lp;
+            swap_count += left_remained as i64;
         }
     }
 
