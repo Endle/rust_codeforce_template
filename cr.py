@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
-# Compile and Run (with rust_bundler_cp
+# Compile and Run (with rust_bundler_cp)
 # MIT LICENSE. Zhenbo Li
 
 import subprocess
 import os
 import sys
 import time
+import platform
 
 # As of 2021-08-06, Codeforces.com is using rust 1.49
 RUST_VERSION = "1.49.0"
@@ -25,6 +26,10 @@ BUNDLING_TIME = get_time_str()
 
 
 def check_rust_toolkit():
+    if 'WSL' in platform.uname()[2]:
+        # Use WSL to skip it is a bit hacky
+        print("Skipped rust version enforce")
+        return
     subprocess.run(["rustup", "default", RUST_VERSION])
 
 
@@ -60,9 +65,19 @@ def reset_workspace():
     exit(0)
 
 
+def check_bleeding_edge_bundler():
+    global BUNDLER
+    bleed = "./" + BUNDLER
+    if os.path.exists(bleed):
+        print("Using bleeding edge bundler")
+        BUNDLER = bleed
+
+
 def main():
     check_rust_toolkit()
     check_valid_cargo_directory()
+    check_bleeding_edge_bundler()
+
     binary = "rust_codeforce_template"
 
     if "--reset" in sys.argv:
