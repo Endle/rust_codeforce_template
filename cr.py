@@ -12,7 +12,15 @@ import platform
 # As of 2021-08-06, Codeforces.com is using rust 1.49
 RUST_VERSION = "1.49.0"
 BUNDLER = "rust_bundler_cp"
-TEMP_DIRECTORY = "/dev/shm"
+
+
+def check_temporary_path():
+    if 'WSL' in platform.uname()[2]: return "../../../Downloads"
+    else: return "/dev/shm"
+
+
+TEMP_DIRECTORY = check_temporary_path()
+
 BACKUP_DIRECTORY = "backup"
 RS_FILE_DIRECTORY = "src/bin/"
 TEMPLATE_RS_FILE_NAME = "_template.rs"
@@ -77,6 +85,7 @@ def main():
     check_rust_toolkit()
     check_valid_cargo_directory()
     check_bleeding_edge_bundler()
+
 
     binary = "rust_codeforce_template"
 
