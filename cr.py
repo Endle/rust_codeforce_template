@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Compile and Run (with rust_bundler_cp
+# Compile and Run (with rust_bundler_cp)
 # MIT LICENSE. Zhenbo Li
 
 import subprocess
