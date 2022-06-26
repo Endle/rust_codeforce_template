@@ -9,7 +9,39 @@ pub mod iters;
 
 
 // ==== BELOW IS text_io https://github.com/oli-obk/rust-si ====
+// Version 0.1.11
 // Tried to put text_io in a module, but failed for exporting macros
+//! This crate allows one-liners to read from a terminal
+//! A minimal example to get an i32 from the command line is
+//!
+//! ```rust,no_run
+//! use text_io::read;
+//!
+//! fn main() {
+//!     let i: i32 = read!();
+//! }
+//! ```
+//!
+//! The `read!()` macro will always read until the next ascii whitespace character
+//! (`\n`, `\r`, `\t` or space).
+//!
+//! Any type that implements the `FromStr` trait can be read with the `read!` macro.
+//!
+//! # Advanced
+//! Text parsing can be done similar to `println!` by adding a format string
+//! to the macro:
+//!
+//! ```rust,no_run
+//! use text_io::read;
+//!
+//! let i: i32 = read!("The answer: {}!");
+//! ```
+//!
+//! This will read `"The answer: "`, then an integer, then an exclamation mark. Any deviation from
+//! the format string will result in a panic.
+//!
+//! Note: only a single value can be read per `read!` invocation.
+
 use std::error;
 use std::fmt;
 use std::str::FromStr;
@@ -95,6 +127,23 @@ pub fn parse_capture<T>(
     }
 }
 
+/// ```rust,no_run
+/// use text_io::try_read;
+///
+/// let i: i32 = try_read!("The answer: {}!").unwrap();
+/// let i: Result<i32, _> = try_read!("The {}{{}}!", "The answer is 42!".bytes());
+/// assert!(i.is_err());
+/// ```
+///
+/// ```rust
+/// use text_io::try_read;
+///
+/// let i: Result<i32, _> = try_read!("The answer is {}!", "The answer is 42!".bytes());
+/// assert!(i.is_ok());
+///
+/// let i: Result<i32, _> = try_read!("The {}{{}}!", "The answer is 42!".bytes());
+/// assert!(i.is_err());
+/// ```
 #[macro_export]
 macro_rules! try_read(
     () => { $crate::try_read!("{}") };
@@ -114,6 +163,19 @@ macro_rules! try_read(
     }};
 );
 
+/// ```rust,no_run
+/// use text_io::try_scan;
+///
+/// fn parser() -> Result<i32, Box<dyn std::error::Error>> {
+///     let i: i32;
+///     let text = "The answer is 42!";
+///
+///     try_scan!(text.bytes() => "The answer is {}!", i);
+///
+///     assert_eq!(i, 1);
+///     Ok(i)
+/// }
+/// ```
 #[macro_export]
 macro_rules! try_scan(
     ($pattern:expr, $($arg:expr),*) => {
@@ -135,7 +197,7 @@ macro_rules! try_scan(
 
         // typesafe macros :)
         let pattern: &'static str = $pattern;
-        let stdin: &mut Iterator<Item = u8> = &mut ($input);
+        let stdin: &mut dyn Iterator<Item = u8> = &mut ($input);
 
         let mut pattern = pattern.bytes();
 
@@ -172,13 +234,17 @@ macro_rules! read(
 #[macro_export]
 macro_rules! scan(
     ($text:expr, $($arg:expr),*) => {
-        use ::std::io::Read;
-        $crate::scan!(::std::io::stdin().bytes().map(std::result::Result::unwrap) => $text, $($arg),*);
+        {
+            use ::std::io::Read;
+            $crate::scan!(::std::io::stdin().bytes().map(std::result::Result::unwrap) => $text, $($arg),*);
+        }
     };
     ($input:expr => $pattern:expr, $($arg:expr),*) => {{
         $crate::try_scan!(@impl unwrap; $input => $pattern, $($arg),*)
     }};
 );
+
+
 // ======== END OF text_io ==========
 
 #[inline(always)]

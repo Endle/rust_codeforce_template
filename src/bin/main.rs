@@ -21,15 +21,8 @@ fn main() {
     for _ in 0..testcases { solve_and_print(); }
 }
 
-#[inline]
-fn solve_and_print() {
-    let answer = solve();
-    match answer {
-        None => (),
-        _ => pr::ln(answer.unwrap())
-    }
-}
 
+/*
 
 //maturing
 fn smaller_pair(a: u32, b: u32) -> (u32, u32) {
@@ -53,3 +46,6 @@ fn read_01_vec() -> Vec<u8> {
 
     ret
 }
+
+
+ */
