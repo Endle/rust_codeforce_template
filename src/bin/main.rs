@@ -21,7 +21,13 @@ fn main() {
     for _ in 0..testcases { solve_and_print(); }
 }
 
-
+fn solve_and_print() {
+    let answer = solve();
+    match answer {
+        None => (),
+        _ => pr::ln(answer.unwrap())
+    }
+}
 /*
 
 //maturing
