@@ -12,7 +12,9 @@ use my_lib::pr;
 
 
 fn solve() -> Option<i64> {
-    None
+    let mut ans = 0;
+
+    Some(ans)
 }
 
 fn main() {
