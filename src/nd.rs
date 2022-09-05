@@ -34,10 +34,23 @@ impl<T:Copy> Arr<T> {
         let p = self._get_pos(n, m);
         self._data[p]
     }
-    pub fn set(&mut self, n:usize, m:usize, ans:T) -> T {
+    pub fn set(&mut self, n:usize, m:usize, ans:T) {
         let p = self._get_pos(n, m);
         self._data[p] = ans;
-        ans
+    }
+}
+
+impl<T:Copy> Clone for Arr<T> {
+    fn clone(&self) -> Self {
+        let mut new_data = Vec::with_capacity(self._data.len());
+        for i in 0..self._data.len(){
+            new_data.push(self._data[i]);
+        }
+        Arr{
+            _max_n: self._max_n,
+            _max_m: self._max_m,
+            _data: new_data,
+        }
     }
 }
 

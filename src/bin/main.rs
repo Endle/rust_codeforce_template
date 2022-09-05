@@ -12,7 +12,9 @@ use my_lib::pr;
 
 
 fn solve() -> Option<i64> {
-    None
+    let mut ans = 0;
+
+    Some(ans)
 }
 
 fn main() {
@@ -21,7 +23,13 @@ fn main() {
     for _ in 0..testcases { solve_and_print(); }
 }
 
-
+fn solve_and_print() {
+    let answer = solve();
+    match answer {
+        None => (),
+        _ => pr::ln(answer.unwrap())
+    }
+}
 /*
 
 //maturing
