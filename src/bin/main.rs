@@ -37,8 +37,12 @@ fn smaller_pair(a: u32, b: u32) -> (u32, u32) {
     let larger = a.max(b);
     return (smaller, larger);
 }
+fn read_str_as_u8() -> Vec<u8> {
+    let s:String = read!();
 
-// Maturing
+    Vec::from(s.as_bytes())
+}
+
 fn read_01_vec() -> Vec<u8> {
     let s:String = read!();
     let mut ret = Vec::with_capacity(s.len());
