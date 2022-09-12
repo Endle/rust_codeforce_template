@@ -32,6 +32,16 @@ fn solve_and_print() {
 
 
 //maturing
+fn get_position_vec(v: &Vec<u8>, t: u8) -> Vec<usize> {
+    let mut result = Vec::new();
+    for i in 0..v.len() {
+        if v[i] == t {
+            result.push(i)
+        }
+    }
+    result
+}
+
 fn smaller_pair(a: u32, b: u32) -> (u32, u32) {
     let smaller = a.min(b);
     let larger = a.max(b);
