@@ -32,13 +32,27 @@ fn solve_and_print() {
 
 
 //maturing
+fn get_position_vec(v: &Vec<u8>, t: u8) -> Vec<usize> {
+    let mut result = Vec::new();
+    for i in 0..v.len() {
+        if v[i] == t {
+            result.push(i)
+        }
+    }
+    result
+}
+
 fn smaller_pair(a: u32, b: u32) -> (u32, u32) {
     let smaller = a.min(b);
     let larger = a.max(b);
     return (smaller, larger);
 }
+fn read_str_as_u8() -> Vec<u8> {
+    let s:String = read!();
 
-// Maturing
+    Vec::from(s.as_bytes())
+}
+
 fn read_01_vec() -> Vec<u8> {
     let s:String = read!();
     let mut ret = Vec::with_capacity(s.len());
