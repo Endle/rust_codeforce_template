@@ -9,9 +9,10 @@ import sys
 import time
 import platform
 
-# As of 2021-08-06, Codeforces.com is using rust 1.49
-RUST_VERSION = "1.49.0"
+RUST_VERSION = "1.85.1" # As of 2025-05-16, Kattis
 BUNDLER = "rust_bundler_cp"
+STRIP_OUTPUT = " "
+BLEEDING = False
 
 
 def check_temporary_path():
@@ -50,7 +51,7 @@ def check_valid_cargo_directory():
 
 def bundle(binary) -> str:
     output_path = TEMP_DIRECTORY + "/problem_" + binary + "_" + BUNDLING_TIME
-    subprocess.run([BUNDLER, "--input", ".", "--binary", binary, "--output", output_path + ".rs"])
+    subprocess.run([BUNDLER, "--input", ".", "--binary", binary, STRIP_OUTPUT, "--output", output_path + ".rs"])
     return output_path
 
 
@@ -75,17 +76,20 @@ def reset_workspace():
 
 def check_bleeding_edge_bundler():
     global BUNDLER
+    global BLEEDING
+    global STRIP_OUTPUT
     bleed = "./" + BUNDLER
     if os.path.exists(bleed):
         print("Using bleeding edge bundler")
         BUNDLER = bleed
+        BLEEDING = True
+        STRIP_OUTPUT = "--remove_unused_mod"
 
 
 def main():
     check_rust_toolkit()
     check_valid_cargo_directory()
     check_bleeding_edge_bundler()
-
 
     binary = "rust_codeforce_template"
 

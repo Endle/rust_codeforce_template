@@ -40,6 +40,7 @@ path = "src/bin/g.rs"
 rand = "0.8.4"
 
 criterion = "0.3.4"
+
 [[bench]]
 name = "bench_algo"
 harness = false
